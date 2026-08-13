@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MPC Escritório de Advogados — Website
 
-## Getting Started
+Website institucional em **Next.js** para o **MPC Escritório de Advogados** (Luanda, Angola). Design executivo em verde e dourado, português de Angola (`pt-AO`), com páginas estáticas, formulários validados e SEO completo.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** (App Router, Turbopack) · **React 19**
+- **Tailwind CSS v4**
+- **shadcn/ui** (preset `radix-nova`) com componentes em `src/components/ui`
+- **react-hook-form** + **zod** para formulários (consulta e contacto)
+- **framer-motion** para animações (loader de página, hero)
+- **react-icons** / **lucide-react** para ícones
+
+## Estrutura
+
+```
+src/
+├── app/                  # Rotas (App Router)
+│   ├── layout.tsx        # Layout raiz + SEO (metadata, OG, JSON-LD)
+│   ├── globals.css       # Tema (cores, fontes, raio)
+│   ├── page.tsx          # Home
+│   ├── sobre-nos/        # Sobre o escritório
+│   ├── areas-de-actuacao/  # Lista de áreas + [slug]/ (9 páginas SSG)
+│   ├── consultas/        # Página de consultas (modalidades + processo)
+│   ├── contactos/        # Contactos + formulário
+│   ├── sitemap.ts
+│   ├── robots.ts
+│   └── icon.tsx / apple-icon.tsx
+├── components/
+│   ├── ui/               # Componentes shadcn (button, input, form, select…)
+│   ├── forms/            # Formulários RHF (consulta, contacto)
+│   ├── hero.tsx
+│   ├── page-loader.tsx   # Loader do 1º acesso / recargas
+│   └── footer.tsx
+└── lib/
+    ├── constants.ts      # Áreas, contactos, estatísticas, SITE_URL
+    ├── validations.ts    # Schemas zod
+    └── utils.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Começar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Abre [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Comandos
 
-To learn more about Next.js, take a look at the following resources:
+| Comando            | Descrição                    |
+| ------------------ | ---------------------------- |
+| `npm run dev`      | Servidor de desenvolvimento  |
+| `npm run build`    | Build de produção            |
+| `npm run start`    | Serve a build de produção    |
+| `npm run lint`     | ESLint                       |
+| `npx tsc --noEmit` | Verificação de tipos         |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuração
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`SITE_URL`** (`src/lib/constants.ts`): placeholder `https://mpcadvogados.ao` — substituir pelo domínio real antes do deploy.
+- **Contactos**: fictícios em `src/lib/constants.ts` (`CONTACT`), atualizar com os dados reais.
+- **Imagens**: `public/bg-image.png` (fundo) e `public/images/` (Unsplash) — substituir pelas fotografias reais do escritório.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Compatível com plataformas Next.js (Vercel, Node servers). As páginas de áreas são geradas estaticamente (`generateStaticParams`); a home e restantes rotas são pré-renderizadas.
