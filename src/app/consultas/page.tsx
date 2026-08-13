@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 import { ConsultaForm } from "@/components/forms/consulta-form";
 import { CONTACT } from "@/lib/constants";
 
@@ -120,24 +121,23 @@ export default function ConsultasPage() {
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {modalidades.map((m) => (
-            <article
-              key={m.titulo}
-              className="group rounded-xl border border-border/70 bg-card p-8 shadow-sm transition hover:border-gold/50 hover:shadow-lg"
-            >
-              <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
-                <m.icon className="size-6" aria-hidden="true" />
-              </span>
-              <h2 className="mt-5 font-heading text-xl font-semibold text-forest">
-                {m.titulo}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {m.descricao}
-              </p>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-gold">
-                {m.detalhe}
-              </p>
-            </article>
+          {modalidades.map((m, i) => (
+            <Reveal key={m.titulo} delay={i * 0.1}>
+              <article className="group h-full rounded-xl border border-border/70 bg-card p-8 shadow-sm transition hover:border-gold/50 hover:shadow-lg">
+                <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
+                  <m.icon className="size-6" aria-hidden="true" />
+                </span>
+                <h2 className="mt-5 font-heading text-xl font-semibold text-forest">
+                  {m.titulo}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {m.descricao}
+                </p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-gold">
+                  {m.detalhe}
+                </p>
+              </article>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -145,7 +145,7 @@ export default function ConsultasPage() {
       <section className="bg-secondary/50 py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_380px]">
-            <div>
+            <Reveal>
               <SectionHeading
                 eyebrow="Marcação"
                 title="Solicite a sua consulta"
@@ -154,62 +154,64 @@ export default function ConsultasPage() {
               <div className="mt-8">
                 <ConsultaForm />
               </div>
-            </div>
+            </Reveal>
 
-            <aside className="space-y-6">
-              <div className="rounded-xl bg-forest p-8 text-white shadow-lg">
-                <h2 className="font-heading text-xl font-bold text-gold">
-                  Prefere contactar directamente?
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  A nossa equipa está disponível durante o horário de
-                  funcionamento para esclarecer dúvidas e agendar a sua consulta.
-                </p>
-                <ul className="mt-6 space-y-4 text-sm">
-                  {infos.map((info) => (
-                    <li key={info.titulo} className="flex gap-3">
-                      <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10">
-                        <info.icon
-                          className="size-4 text-gold"
-                          aria-hidden="true"
-                        />
-                      </span>
-                      <div>
-                        <p className="font-medium text-white">{info.titulo}</p>
-                        {info.href ? (
-                          <a
-                            href={info.href}
-                            target={info.href.startsWith("http") ? "_blank" : undefined}
-                            rel={
-                              info.href.startsWith("http")
-                                ? "noopener noreferrer"
-                                : undefined
-                            }
-                            className="text-white/75 transition hover:text-gold"
-                          >
-                            {info.linhas[0]}
-                          </a>
-                        ) : (
-                          <p className="text-white/75">{info.linhas[0]}</p>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <Reveal delay={0.15}>
+              <aside className="space-y-6">
+                <div className="rounded-xl bg-forest p-8 text-white shadow-lg">
+                  <h2 className="font-heading text-xl font-bold text-gold">
+                    Prefere contactar directamente?
+                  </h2>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">
+                    A nossa equipa está disponível durante o horário de
+                    funcionamento para esclarecer dúvidas e agendar a sua consulta.
+                  </p>
+                  <ul className="mt-6 space-y-4 text-sm">
+                    {infos.map((info) => (
+                      <li key={info.titulo} className="flex gap-3">
+                        <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md bg-white/10">
+                          <info.icon
+                            className="size-4 text-gold"
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <div>
+                          <p className="font-medium text-white">{info.titulo}</p>
+                          {info.href ? (
+                            <a
+                              href={info.href}
+                              target={info.href.startsWith("http") ? "_blank" : undefined}
+                              rel={
+                                info.href.startsWith("http")
+                                  ? "noopener noreferrer"
+                                  : undefined
+                              }
+                              className="text-white/75 transition hover:text-gold"
+                            >
+                              {info.linhas[0]}
+                            </a>
+                          ) : (
+                            <p className="text-white/75">{info.linhas[0]}</p>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-              <div className="rounded-xl border border-gold/40 bg-gold/5 p-8">
-                <ShieldCheck className="size-8 text-gold" aria-hidden="true" />
-                <h2 className="mt-4 font-heading text-lg font-semibold text-forest">
-                  Confidencialidade garantida
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Todas as informações partilhadas são estritamente
-                  confidenciais e protegidas pelo segredo profissional, em
-                  qualquer modalidade de consulta.
-                </p>
-              </div>
-            </aside>
+                <div className="rounded-xl border border-gold/40 bg-gold/5 p-8">
+                  <ShieldCheck className="size-8 text-gold" aria-hidden="true" />
+                  <h2 className="mt-4 font-heading text-lg font-semibold text-forest">
+                    Confidencialidade garantida
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Todas as informações partilhadas são estritamente
+                    confidenciais e protegidas pelo segredo profissional, em
+                    qualquer modalidade de consulta.
+                  </p>
+                </div>
+              </aside>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -222,21 +224,20 @@ export default function ConsultasPage() {
           description="Da solicitação ao acompanhamento, garantimos clareza e organização em cada etapa."
         />
         <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {processo.map((etapa) => (
-            <li
-              key={etapa.passo}
-              className="relative rounded-xl border border-border/70 bg-card p-7 shadow-sm"
-            >
-              <span className="font-heading text-4xl font-bold text-gold">
-                {etapa.passo}
-              </span>
-              <h3 className="mt-3 font-heading text-lg font-semibold text-forest">
-                {etapa.titulo}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {etapa.descricao}
-              </p>
-            </li>
+          {processo.map((etapa, i) => (
+            <Reveal key={etapa.passo} delay={i * 0.1}>
+              <li className="h-full rounded-xl border border-border/70 bg-card p-7 shadow-sm">
+                <span className="font-heading text-4xl font-bold text-gold">
+                  {etapa.passo}
+                </span>
+                <h3 className="mt-3 font-heading text-lg font-semibold text-forest">
+                  {etapa.titulo}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {etapa.descricao}
+                </p>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </section>

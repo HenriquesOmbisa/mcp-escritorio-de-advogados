@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CheckCircle2, ArrowRight, PhoneCall } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 import { CtaBanner } from "@/components/cta-banner";
 import { Button } from "@/components/ui/button";
 import { AREAS_DE_ACTUACAO, CONTACT } from "@/lib/constants";
@@ -89,7 +90,7 @@ export default async function AreaPage({ params }: AreaPageProps) {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <div>
+          <Reveal>
             <SectionHeading
               eyebrow="Visão Geral"
               title={`Serviços em ${area.titulo}`}
@@ -117,9 +118,9 @@ export default async function AreaPage({ params }: AreaPageProps) {
                 </a>
               </Button>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative">
+          <Reveal delay={0.15} className="relative">
             <div
               className="absolute -right-4 -top-4 h-40 w-40 rounded-tl-3xl border-r-2 border-t-2 border-gold/50"
               aria-hidden="true"
@@ -132,7 +133,7 @@ export default async function AreaPage({ params }: AreaPageProps) {
               className="relative rounded-xl object-cover shadow-xl"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -145,16 +146,15 @@ export default async function AreaPage({ params }: AreaPageProps) {
             description="Uma abordagem completa e integrada, do aconselhamento preventivo à representação em contencioso."
           />
           <div className="mt-14 grid gap-4 sm:grid-cols-2">
-            {area.servicos.map((servico) => (
-              <div
-                key={servico}
-                className="flex items-start gap-4 rounded-xl border border-border/70 bg-card p-5 shadow-sm"
-              >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-forest">
-                  <CheckCircle2 className="size-5 text-gold" aria-hidden="true" />
-                </span>
-                <p className="pt-2 font-medium text-foreground">{servico}</p>
-              </div>
+            {area.servicos.map((servico, i) => (
+              <Reveal key={servico} delay={i * 0.05}>
+                <div className="flex h-full items-start gap-4 rounded-xl border border-border/70 bg-card p-5 shadow-sm">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-forest">
+                    <CheckCircle2 className="size-5 text-gold" aria-hidden="true" />
+                  </span>
+                  <p className="pt-2 font-medium text-foreground">{servico}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -167,21 +167,20 @@ export default async function AreaPage({ params }: AreaPageProps) {
           title="Como trabalhamos"
         />
         <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {processo.map((etapa) => (
-            <li
-              key={etapa.passo}
-              className="relative border-t-2 border-gold/40 pt-6"
-            >
-              <span className="font-heading text-3xl font-bold text-gold">
-                {etapa.passo}
-              </span>
-              <h3 className="mt-2 font-heading text-lg font-semibold text-forest">
-                {etapa.titulo}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {etapa.descricao}
-              </p>
-            </li>
+          {processo.map((etapa, i) => (
+            <Reveal key={etapa.passo} delay={i * 0.1}>
+              <li className="border-t-2 border-gold/40 pt-6">
+                <span className="font-heading text-3xl font-bold text-gold">
+                  {etapa.passo}
+                </span>
+                <h3 className="mt-2 font-heading text-lg font-semibold text-forest">
+                  {etapa.titulo}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {etapa.descricao}
+                </p>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </section>
@@ -194,26 +193,27 @@ export default async function AreaPage({ params }: AreaPageProps) {
             title="Outras áreas de actuação"
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {outrasAreas.map((outra) => (
-              <Link
-                key={outra.slug}
-                href={`/areas-de-actuacao/${outra.slug}`}
-                className="group rounded-xl border border-border/70 bg-card p-6 shadow-sm transition hover:border-gold/50 hover:shadow-lg"
-              >
-                <span className="flex size-10 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
-                  <outra.icon className="size-5" aria-hidden="true" />
-                </span>
-                <h3 className="mt-4 font-heading text-base font-semibold text-forest">
-                  {outra.titulo}
-                </h3>
-                <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
-                  {outra.descricao}
-                </p>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-gold">
-                  Saber mais
-                  <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
-              </Link>
+            {outrasAreas.map((outra, i) => (
+              <Reveal key={outra.slug} delay={i * 0.08}>
+                <Link
+                  href={`/areas-de-actuacao/${outra.slug}`}
+                  className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-6 shadow-sm transition hover:border-gold/50 hover:shadow-lg"
+                >
+                  <span className="flex size-10 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
+                    <outra.icon className="size-5" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-4 font-heading text-base font-semibold text-forest">
+                    {outra.titulo}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
+                    {outra.descricao}
+                  </p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-gold">
+                    Saber mais
+                    <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Target, Eye, HeartHandshake, Users } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 import { CtaBanner } from "@/components/cta-banner";
 
 export const metadata: Metadata = {
@@ -68,7 +69,7 @@ export default function SobreNosPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
+          <Reveal delay={0.1}>
             <SectionHeading
               eyebrow="A Nossa História"
               title="Mais de 18 anos ao serviço do direito em Angola"
@@ -93,8 +94,8 @@ export default function SobreNosPage() {
                 confiado.
               </p>
             </div>
-          </div>
-          <div className="relative">
+          </Reveal>
+          <Reveal className="relative">
             <Image
               src="/images/office.jpg"
               alt="Equipa de advogados numa sala de reuniões"
@@ -103,7 +104,7 @@ export default function SobreNosPage() {
               className="rounded-xl object-cover shadow-xl"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -115,21 +116,20 @@ export default function SobreNosPage() {
             title="O que nos move todos os dias"
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {valores.map((v) => (
-              <div
-                key={v.titulo}
-                className="rounded-xl border border-border/70 bg-card p-8 shadow-sm"
-              >
-                <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold">
-                  <v.icon className="size-6" aria-hidden="true" />
-                </span>
-                <h3 className="mt-5 font-heading text-xl font-semibold text-forest">
-                  {v.titulo}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {v.descricao}
-                </p>
-              </div>
+            {valores.map((v, i) => (
+              <Reveal key={v.titulo} delay={i * 0.1}>
+                <div className="h-full rounded-xl border border-border/70 bg-card p-8 shadow-sm">
+                  <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold">
+                    <v.icon className="size-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-5 font-heading text-xl font-semibold text-forest">
+                    {v.titulo}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {v.descricao}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -143,19 +143,18 @@ export default function SobreNosPage() {
           description="Advogados dedicados, experientes e empenhados na defesa dos seus interesses."
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {equipa.map((membro) => (
-            <div
-              key={membro.nome}
-              className="rounded-xl border border-border/70 bg-card p-7 text-center shadow-sm transition hover:border-gold/50"
-            >
-              <span className="mx-auto flex size-14 items-center justify-center rounded-none bg-forest text-gold">
-                <Users className="size-7" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 font-heading text-lg font-semibold text-forest">
-                {membro.nome}
-              </h3>
-              <p className="mt-1 text-sm text-gold">{membro.funcao}</p>
-            </div>
+          {equipa.map((membro, i) => (
+            <Reveal key={membro.nome} delay={i * 0.08}>
+              <div className="h-full rounded-xl border border-border/70 bg-card p-7 text-center shadow-sm transition hover:border-gold/50">
+                <span className="mx-auto flex size-14 items-center justify-center rounded-none bg-forest text-gold">
+                  <Users className="size-7" aria-hidden="true" />
+                </span>
+                <h3 className="mt-4 font-heading text-lg font-semibold text-forest">
+                  {membro.nome}
+                </h3>
+                <p className="mt-1 text-sm text-gold">{membro.funcao}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>

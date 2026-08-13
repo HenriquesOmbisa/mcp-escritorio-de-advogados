@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, PhoneCall } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CONTACT } from "@/lib/constants";
 
@@ -9,9 +12,17 @@ type CtaBannerProps = {
 };
 
 export function CtaBanner({ title, description }: CtaBannerProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="relative overflow-hidden rounded-2xl bg-forest px-6 py-14 text-center sm:px-12">
+      <motion.div
+        className="relative overflow-hidden rounded-2xl bg-forest px-6 py-14 text-center sm:px-12"
+        initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: "url(/bg-image.png)" }}
@@ -46,7 +57,7 @@ export function CtaBanner({ title, description }: CtaBannerProps) {
             </Button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

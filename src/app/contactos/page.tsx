@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
+import { Reveal } from "@/components/reveal";
 import { ContactoForm } from "@/components/forms/contacto-form";
 import { CONTACT } from "@/lib/constants";
 
@@ -52,38 +53,37 @@ export default function ContactosPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {contactos.map((c) => (
-            <div
-              key={c.titulo}
-              className="rounded-xl border border-border/70 bg-card p-7 shadow-sm"
-            >
-              <span className="flex size-11 items-center justify-center rounded-lg bg-forest text-gold">
-                <c.icon className="size-5" aria-hidden="true" />
-              </span>
-              <h2 className="mt-4 font-heading text-lg font-semibold text-forest">
-                {c.titulo}
-              </h2>
-              <div className="mt-2 space-y-1 text-sm text-muted-foreground">
-                {c.linhas.map((linha, i) =>
-                  c.href && i === 0 ? (
-                    <a
-                      key={linha}
-                      href={c.href}
-                      className="block transition hover:text-gold"
-                    >
-                      {linha}
-                    </a>
-                  ) : (
-                    <p key={linha}>{linha}</p>
-                  )
-                )}
+          {contactos.map((c, i) => (
+            <Reveal key={c.titulo} delay={i * 0.08}>
+              <div className="h-full rounded-xl border border-border/70 bg-card p-7 shadow-sm">
+                <span className="flex size-11 items-center justify-center rounded-lg bg-forest text-gold">
+                  <c.icon className="size-5" aria-hidden="true" />
+                </span>
+                <h2 className="mt-4 font-heading text-lg font-semibold text-forest">
+                  {c.titulo}
+                </h2>
+                <div className="mt-2 space-y-1 text-sm text-muted-foreground">
+                  {c.linhas.map((linha, i) =>
+                    c.href && i === 0 ? (
+                      <a
+                        key={linha}
+                        href={c.href}
+                        className="block transition hover:text-gold"
+                      >
+                        {linha}
+                      </a>
+                    ) : (
+                      <p key={linha}>{linha}</p>
+                    )
+                  )}
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-2">
-          <div>
+          <Reveal>
             <h2 className="font-heading text-2xl font-bold text-forest sm:text-3xl">
               Envie-nos uma mensagem
             </h2>
@@ -94,9 +94,9 @@ export default function ContactosPage() {
             <div className="mt-8">
               <ContactoForm />
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={0.15}>
             <h2 className="font-heading text-2xl font-bold text-forest sm:text-3xl">
               Como chegar
             </h2>
@@ -120,7 +120,7 @@ export default function ContactosPage() {
                 agendar.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 import { CtaBanner } from "@/components/cta-banner";
 import { Button } from "@/components/ui/button";
 import { AREAS_DE_ACTUACAO } from "@/lib/constants";
@@ -28,7 +29,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="relative">
+          <Reveal className="relative">
             <div className="absolute -left-4 -top-4 h-40 w-40 rounded-tr-3xl border-l-2 border-t-2 border-gold/50" aria-hidden="true" />
             <Image
               src="/images/about.jpg"
@@ -42,9 +43,9 @@ export default function HomePage() {
               <p className="font-heading text-3xl font-bold text-gold">18+</p>
               <p className="text-sm text-white/80">Anos de experiência</p>
             </div>
-          </div>
+          </Reveal>
 
-          <div>
+          <Reveal delay={0.15}>
             <SectionHeading
               eyebrow="Quem Somos"
               title="Advocacia de excelência ao serviço dos seus interesses"
@@ -66,7 +67,7 @@ export default function HomePage() {
                 </Link>
               </Button>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -79,26 +80,27 @@ export default function HomePage() {
             description="Uma prática multidisciplinar que dá resposta às necessidades legais de particulares, empresas e entidades públicas."
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {AREAS_DE_ACTUACAO.slice(0, 6).map((area) => (
-              <Link
-                key={area.slug}
-                href={`/areas-de-actuacao/${area.slug}`}
-                className="group rounded-xl border border-border/70 bg-card p-6 shadow-sm transition hover:border-gold/50 hover:shadow-lg"
-              >
-                <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
-                  <area.icon className="size-6" aria-hidden="true" />
-                </span>
-                <h3 className="mt-4 font-heading text-xl text-forest">
-                  {area.titulo}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {area.descricao}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold">
-                  Saber mais
-                  <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
-                </span>
-              </Link>
+            {AREAS_DE_ACTUACAO.slice(0, 6).map((area, i) => (
+              <Reveal key={area.slug} delay={i * 0.08}>
+                <Link
+                  href={`/areas-de-actuacao/${area.slug}`}
+                  className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-6 shadow-sm transition hover:border-gold/50 hover:shadow-lg"
+                >
+                  <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
+                    <area.icon className="size-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-4 font-heading text-xl text-forest">
+                    {area.titulo}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {area.descricao}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold">
+                    Saber mais
+                    <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                </Link>
+              </Reveal>
             ))}
           </div>
           <div className="mt-10 text-center">
@@ -114,7 +116,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="order-2 lg:order-1">
+          <Reveal delay={0.15} className="order-2 lg:order-1">
             <SectionHeading
               eyebrow="O Nosso Método"
               title="Abordagem próxima, transparente e orientada a resultados"
@@ -128,8 +130,8 @@ export default function HomePage() {
                 </Link>
               </Button>
             </div>
-          </div>
-          <div className="order-1 lg:order-2">
+          </Reveal>
+          <Reveal className="order-1 lg:order-2">
             <Image
               src="/images/office.jpg"
               alt="Sala de reuniões moderna de um escritório de advogados"
@@ -138,7 +140,7 @@ export default function HomePage() {
               className="rounded-xl object-cover shadow-xl"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SectionHeading } from "@/components/section-heading";
+import { Reveal } from "@/components/reveal";
 import { CtaBanner } from "@/components/cta-banner";
 import { AREAS_DE_ACTUACAO } from "@/lib/constants";
 
@@ -29,26 +30,27 @@ export default function AreasActuacaoPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {AREAS_DE_ACTUACAO.map((area) => (
-            <Link
-              key={area.slug}
-              href={`/areas-de-actuacao/${area.slug}`}
-              className="group rounded-xl border border-border/70 bg-card p-8 shadow-sm transition hover:-translate-y-1 hover:border-gold/50 hover:shadow-lg"
-            >
-              <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
-                <area.icon className="size-6" aria-hidden="true" />
-              </span>
-              <h2 className="mt-5 font-heading text-xl font-semibold text-forest">
-                {area.titulo}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {area.descricao}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold">
-                Saber mais
-                <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
-              </span>
-            </Link>
+          {AREAS_DE_ACTUACAO.map((area, i) => (
+            <Reveal key={area.slug} delay={i * 0.07}>
+              <Link
+                href={`/areas-de-actuacao/${area.slug}`}
+                className="group flex h-full flex-col rounded-xl border border-border/70 bg-card p-8 shadow-sm transition hover:-translate-y-1 hover:border-gold/50 hover:shadow-lg"
+              >
+                <span className="flex size-12 items-center justify-center rounded-lg bg-forest text-gold transition group-hover:bg-gold group-hover:text-forest">
+                  <area.icon className="size-6" aria-hidden="true" />
+                </span>
+                <h2 className="mt-5 font-heading text-xl font-semibold text-forest">
+                  {area.titulo}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {area.descricao}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold">
+                  Saber mais
+                  <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                </span>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -86,18 +88,20 @@ export default function AreasActuacaoPage() {
                 descricao:
                   "Acompanhamos o processo até à conclusão, mantendo o cliente sempre informado.",
               },
-            ].map((etapa) => (
-              <li key={etapa.passo} className="relative border-t-2 border-gold/40 pt-6">
-                <span className="font-heading text-3xl font-bold text-gold">
-                  {etapa.passo}
-                </span>
-                <h3 className="mt-2 font-heading text-lg font-semibold text-forest">
-                  {etapa.titulo}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {etapa.descricao}
-                </p>
-              </li>
+            ].map((etapa, i) => (
+              <Reveal key={etapa.passo} delay={i * 0.1}>
+                <li className="border-t-2 border-gold/40 pt-6">
+                  <span className="font-heading text-3xl font-bold text-gold">
+                    {etapa.passo}
+                  </span>
+                  <h3 className="mt-2 font-heading text-lg font-semibold text-forest">
+                    {etapa.titulo}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {etapa.descricao}
+                  </p>
+                </li>
+              </Reveal>
             ))}
           </ol>
         </div>
